@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from "react";
-import "./SubmitCourse.css";
+import "./submitCourse.css";
 
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbyTCOvdf0w2JKBU7OZkM7fEVS4MRB8cVn31ImnqqYBcOf0qJu5tuoYvdeJz5aNI-hgWsQ/exec";
+  "https://script.google.com/macros/s/AKfycbyluFTekGJ-PSSYw1rnXfwrVTpi-OGbHLUwYYg7sMHBAJMVX1G_QoXvltKKLKmvcOphIw/exec";
 
 const initialFormData = {
   name: "",
@@ -40,6 +40,8 @@ function SubmitCourse() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [contactMessage, setContactMessage] = useState("");
+  const [showCourseConfirmation, setShowCourseConfirmation] = useState(false);
+  const [lastSubmittedCourse, setLastSubmittedCourse] = useState(null);
 
   const isPaidCourse = useMemo(() => {
     const p = String(formData.price || "").trim().toLowerCase();
@@ -85,7 +87,6 @@ function SubmitCourse() {
       const result = reader.result;
       if (typeof result === "string") {
         setImagePreview(result);
-
         const base64Only = result.split(",")[1];
         setImageBase64(base64Only);
       }
@@ -105,6 +106,7 @@ function SubmitCourse() {
     e.preventDefault();
     setLoading(true);
     setMessage("");
+    setShowCourseConfirmation(false);
 
     if (!imageBase64 || !imageFile) {
       setMessage("يرجى رفع صورة الدورة.");
@@ -145,7 +147,20 @@ function SubmitCourse() {
       const data = JSON.parse(text);
 
       if (data.success) {
-        setMessage("تم إرسال الدورة والصورة بنجاح وهي الآن بانتظار المراجعة.");
+        setMessage(
+          "تم إرسال الدورة بنجاح. بقيت خطوة واحدة أخيرة: التأكيد عبر واتساب."
+        );
+
+        setLastSubmittedCourse({
+          teachedBy: formData.teachedBy.trim(),
+          teacherEmail: formData.teacherEmail.trim(),
+          teacherPhone: formData.teacherPhone.trim(),
+          name: formData.name.trim(),
+          price: formData.price.trim(),
+          isPaid: isPaidCourse,
+        });
+
+        setShowCourseConfirmation(true);
         resetCourseForm();
       } else {
         setMessage(data.message || "حدث خطأ أثناء إرسال الدورة.");
@@ -156,6 +171,39 @@ function SubmitCourse() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const sendCourseConfirmation = () => {
+    if (!lastSubmittedCourse) return;
+
+    const whatsappText = lastSubmittedCourse.isPaid
+      ? `مرحباً SudanTeach
+
+خطوة أخيرة: تأكيد بيانات الدورة والدفع
+
+اسم الأستاذ: ${lastSubmittedCourse.teachedBy}
+البريد الإلكتروني: ${lastSubmittedCourse.teacherEmail}
+رقم الهاتف: ${lastSubmittedCourse.teacherPhone}
+اسم الدورة: ${lastSubmittedCourse.name}
+السعر: ${lastSubmittedCourse.price}
+
+أرسل هذا الطلب لتأكيد الدورة، مع إرفاق دليل الدفع في هذه المحادثة.`
+      : `مرحباً SudanTeach
+
+خطوة أخيرة: تأكيد بيانات الدورة
+
+اسم الأستاذ: ${lastSubmittedCourse.teachedBy}
+البريد الإلكتروني: ${lastSubmittedCourse.teacherEmail}
+رقم الهاتف: ${lastSubmittedCourse.teacherPhone}
+اسم الدورة: ${lastSubmittedCourse.name}
+
+أرسل هذا الطلب لتأكيد الدورة ومراجعتها قبل النشر.`;
+
+    const whatsappUrl = `https://wa.me/250794101251?text=${encodeURIComponent(
+      whatsappText
+    )}`;
+
+    window.open(whatsappUrl, "_blank");
   };
 
   const handleContactSubmit = (e) => {
@@ -425,11 +473,36 @@ ${contactData.message}`;
           </button>
 
           {message && <p className="submit-message">{message}</p>}
+
+          {showCourseConfirmation && lastSubmittedCourse && (
+            <div className="course-confirmation-box">
+              <h3>
+                {lastSubmittedCourse.isPaid
+                  ? "خطوة واحدة أخيرة: تأكيد الدورة والدفع"
+                  : "خطوة واحدة أخيرة: تأكيد الدورة"}
+              </h3>
+
+              <p>
+                {lastSubmittedCourse.isPaid
+                  ? "تم استلام بيانات الدورة. أرسل الآن طلب التأكيد مع دليل الدفع عبر واتساب لإكمال المراجعة."
+                  : "تم استلام بيانات الدورة. أرسل الآن طلب التأكيد عبر واتساب لإكمال المراجعة."}
+              </p>
+
+              <button
+                type="button"
+                className="course-confirm-btn"
+                onClick={sendCourseConfirmation}
+              >
+                {lastSubmittedCourse.isPaid
+                  ? "إرسال تأكيد الدورة والدفع"
+                  : "إرسال طلب التأكيد"}
+              </button>
+            </div>
+          )}
         </form>
       )}
     </section>
   );
 }
-
 
 export default SubmitCourse;
