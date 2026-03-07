@@ -1,5 +1,5 @@
 import React from "react";
-import "./aboutPlatform.css";
+import "./AboutPlatform.css";
 
 function AboutPlatform() {
   return (
@@ -87,5 +87,6 @@ function AboutPlatform() {
     </section>
   );
 }
+
 
 export default AboutPlatform;
