@@ -367,7 +367,7 @@ function Courses() {
               const teacherVideoUrl = getTeacherVideoUrl(item);
 
               return (
-                <div className="course-card" key={item.id}>
+                <div className="course-card" id="course" key={item.id}>
                   <div className="course-img">
                     <img
                       src={getCourseImage(item)}
@@ -613,3 +613,4 @@ function Courses() {
 }
 
 export default Courses;
+
