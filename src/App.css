@@ -301,8 +301,6 @@ header {
     gap: 1em;
   }
   .menu a{
-    outline: none;
-    border: none;
     width: 100%;
     text-align: center;
   }
@@ -312,6 +310,9 @@ header {
   }
   .menu .primary {
     background-color: #2563eb;
+    color: white;
+    padding: 10px ;
+    border-radius: 8px;
   }
   .menu .primary:hover {
     background-color: #0940b6;
@@ -396,6 +397,7 @@ header {
     max-width: 340px;
     min-width: auto;
     font-size: 1rem;
+    text-align: center;
   }
 }
 
