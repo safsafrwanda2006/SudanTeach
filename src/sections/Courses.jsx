@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import "./courses.css";
 
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbyTCOvdf0w2JKBU7OZkM7fEVS4MRB8cVn31ImnqqYBcOf0qJu5tuoYvdeJz5aNI-hgWsQ/exec";
+  "https://script.google.com/macros/s/AKfycbzzk5CAKb2RA28vmzNXkpyp5PhixjQsHZ3U7F-qixOK4aLQbMAbGVesnCwmLAoO8uXlGA/exec";
 
 const fallbackImage =
   "data:image/svg+xml;utf8," +
@@ -528,4 +528,5 @@ function Courses() {
 }
 
 export default Courses;
+
 
