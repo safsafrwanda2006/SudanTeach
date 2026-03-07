@@ -21,6 +21,7 @@ function App() {
               e.stopPropagation();
               setMenu((prev) => !prev);
             }}
+            
             className="menu-btn"
           >
             <img src="/icons/square (1).png" alt="" />
