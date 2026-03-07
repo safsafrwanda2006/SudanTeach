@@ -2,7 +2,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import "./courses.css";
 
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbzzk5CAKb2RA28vmzNXkpyp5PhixjQsHZ3U7F-qixOK4aLQbMAbGVesnCwmLAoO8uXlGA/exec";
+  "https://script.google.com/macros/s/AKfycbyTCOvdf0w2JKBU7OZkM7fEVS4MRB8cVn31ImnqqYBcOf0qJu5tuoYvdeJz5aNI-hgWsQ/exec";
+
+const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@SudanTeach";
 
 const fallbackImage =
   "data:image/svg+xml;utf8," +
@@ -15,7 +17,6 @@ const fallbackImage =
       </text>
     </svg>
   `);
-
 
 const paymentMethods = {
   بنكك: {
@@ -112,6 +113,20 @@ function Courses() {
     return fallbackImage;
   };
 
+  const getTeacherVideoUrl = (course) => {
+    const directUrl = String(course.youtubeVideoUrl || "").trim();
+    const alt1 = String(course.teacherVideoUrl || "").trim();
+    const alt2 = String(course.videoUrl || "").trim();
+
+    const finalUrl = directUrl || alt1 || alt2;
+
+    if (finalUrl && /^https?:\/\//i.test(finalUrl)) {
+      return finalUrl;
+    }
+
+    return YOUTUBE_CHANNEL_URL;
+  };
+
   const formatDate = (value) => {
     if (!value) return "";
     const str = String(value).trim();
@@ -132,7 +147,10 @@ function Courses() {
     return str;
   };
 
-  const normalizePrice = (price) => String(price || "").trim().toLowerCase();
+  const normalizePrice = (price) =>
+    String(price || "")
+      .trim()
+      .toLowerCase();
 
   const isFreeCourse = (price) => {
     const p = normalizePrice(price);
@@ -215,12 +233,12 @@ function Courses() {
       if (data.success) {
         if (paidCourse) {
           setRegisterMessage(
-            "تم حفظ طلب التسجيل. الآن اختر وسيلة الدفع ثم أرسل تأكيد الدفع عبر واتساب."
+            "تم حفظ طلب التسجيل. الآن اختر وسيلة الدفع ثم أرسل تأكيد الدفع عبر واتساب.",
           );
           setShowPaymentOptions(true);
         } else {
           setRegisterMessage(
-            "تم التسجيل بنجاح. سيتم إضافتك إلى الميتينق أو القروب المناسب قريباً."
+            "تم التسجيل بنجاح. سيتم إضافتك إلى الميتينق أو القروب المناسب قريباً.",
           );
         }
       } else {
@@ -242,8 +260,6 @@ function Courses() {
       return;
     }
 
-    const method = paymentMethods[selectedPaymentMethod];
-
     const whatsappText = `مرحباً، دا تأكيد دفع لتسجيل كورس في SudanTeach
 
 اسم الطالب: ${registerData.studentName}
@@ -258,7 +274,7 @@ function Courses() {
 الرجاء إرفاق صورة أو دليل الدفع في هذه المحادثة.`;
 
     const whatsappUrl = `https://wa.me/250794101251?text=${encodeURIComponent(
-      whatsappText
+      whatsappText,
     )}`;
 
     window.open(whatsappUrl, "_blank");
@@ -278,7 +294,11 @@ function Courses() {
 
       <div className="classification">
         <button
-          className={selectedCategory === "دورات أكاديمية" ? "classifiy active" : "classifiy"}
+          className={
+            selectedCategory === "دورات أكاديمية"
+              ? "classifiy active"
+              : "classifiy"
+          }
           onClick={() => setSelectedCategory("دورات أكاديمية")}
         >
           <div className="class-line">
@@ -290,7 +310,11 @@ function Courses() {
         </button>
 
         <button
-          className={selectedCategory === "دورات تقنية" ? "classifiy active" : "classifiy"}
+          className={
+            selectedCategory === "دورات تقنية"
+              ? "classifiy active"
+              : "classifiy"
+          }
           onClick={() => setSelectedCategory("دورات تقنية")}
         >
           <div className="class-line">
@@ -302,7 +326,11 @@ function Courses() {
         </button>
 
         <button
-          className={selectedCategory === "دورات مهارات" ? "classifiy active" : "classifiy"}
+          className={
+            selectedCategory === "دورات مهارات"
+              ? "classifiy active"
+              : "classifiy"
+          }
           onClick={() => setSelectedCategory("دورات مهارات")}
         >
           <div className="class-line">
@@ -314,7 +342,9 @@ function Courses() {
         </button>
 
         <button
-          className={selectedCategory === "الكل" ? "classifiy active" : "classifiy"}
+          className={
+            selectedCategory === "الكل" ? "classifiy active" : "classifiy"
+          }
           onClick={() => setSelectedCategory("الكل")}
         >
           <div className="class-line">
@@ -334,9 +364,10 @@ function Courses() {
           {filteredCourses.length > 0 ? (
             filteredCourses.map((item) => {
               const free = isFreeCourse(item.price);
+              const teacherVideoUrl = getTeacherVideoUrl(item);
 
               return (
-                <div className="course-card" id="course" key={item.id}>
+                <div className="course-card" key={item.id}>
                   <div className="course-img">
                     <img
                       src={getCourseImage(item)}
@@ -353,13 +384,33 @@ function Courses() {
                   <div className="content">
                     <div className="course-top-line">
                       <span className="course-category">{item.category}</span>
-                      <span className={free ? "price-tag free" : "price-tag paid"}>
+                      <span
+                        className={free ? "price-tag free" : "price-tag paid"}
+                      >
                         {free ? "مجاني" : item.price}
                       </span>
                     </div>
 
                     <h3>{item.name}</h3>
-                    <p className="teacher">يقدمه: {item.teachedBy}</p>
+
+                    <div className="teacher-video-row">
+                      <p className="teacher">يقدمه: {item.teachedBy}</p>
+                      <a
+                        href={teacherVideoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="teacher-video-btn"
+                      >
+                        <img
+                          src="/icons/youtube.png"
+                          alt="YouTube"
+                          className="youtube-icon"
+                        />
+                        <span>شاهد فيديو تعريفي للمدرس</span>
+                      </a>
+                      
+                    </div>
+
                     <p className="short-desc">{item.shortDescription}</p>
 
                     <div className="course-meta">
@@ -373,7 +424,10 @@ function Courses() {
                     </div>
 
                     <div className="course-actions">
-                      <button className="details-btn" onClick={() => openCourseModal(item)}>
+                      <button
+                        className="details-btn"
+                        onClick={() => openCourseModal(item)}
+                      >
                         سجّل الآن
                       </button>
                     </div>
@@ -382,7 +436,9 @@ function Courses() {
               );
             })
           ) : (
-            <p className="empty-courses">لا توجد دورات متاحة في هذا التصنيف حالياً.</p>
+            <p className="empty-courses">
+              لا توجد دورات متاحة في هذا التصنيف حالياً.
+            </p>
           )}
         </div>
       )}
@@ -407,23 +463,48 @@ function Courses() {
 
             <div className="modal-content">
               <div className="modal-top">
-                <span className="modal-category">{selectedCourse.category}</span>
+                <span className="modal-category">
+                  {selectedCourse.category}
+                </span>
                 <span
                   className={
-                    isFreeCourse(selectedCourse.price) ? "price-tag free" : "price-tag paid"
+                    isFreeCourse(selectedCourse.price)
+                      ? "price-tag free"
+                      : "price-tag paid"
                   }
                 >
-                  {isFreeCourse(selectedCourse.price) ? "مجاني" : selectedCourse.price}
+                  {isFreeCourse(selectedCourse.price)
+                    ? "مجاني"
+                    : selectedCourse.price}
                 </span>
               </div>
 
               <h2>{selectedCourse.name}</h2>
-              <p className="modal-teacher">يقدمه: {selectedCourse.teachedBy}</p>
-              <p className="modal-description">{selectedCourse.fullDescription}</p>
+
+              <div className="modal-teacher-row">
+                <p className="modal-teacher">
+                  يقدمه: {selectedCourse.teachedBy}
+                </p>
+
+                <a
+                  href={getTeacherVideoUrl(selectedCourse)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="teacher-video-btn modal-video-btn"
+                >
+                  شاهد فيديو تعريفي للمدرس
+                </a>
+              </div>
+
+              <p className="modal-description">
+                {selectedCourse.fullDescription}
+              </p>
 
               <div className="modal-meta">
                 <span>تاريخ البداية: {formatDate(selectedCourse.startAt)}</span>
-                <span>تاريخ النهاية: {formatDate(selectedCourse.finishedAt)}</span>
+                <span>
+                  تاريخ النهاية: {formatDate(selectedCourse.finishedAt)}
+                </span>
                 <span>عدد الدروس: {selectedCourse.lessonsCount}</span>
                 <span>طريقة الحصة: {selectedCourse.meetingType}</span>
                 <span>الحالة: {selectedCourse.status}</span>
@@ -459,7 +540,11 @@ function Courses() {
                   required
                 />
 
-                <button type="submit" className="submit-register" disabled={registerLoading}>
+                <button
+                  type="submit"
+                  className="submit-register"
+                  disabled={registerLoading}
+                >
                   {registerLoading ? "جاري التسجيل..." : "تأكيد التسجيل"}
                 </button>
 
@@ -473,11 +558,11 @@ function Courses() {
                   <button
                     type="button"
                     className="payment-toggle-btn"
-                    onClick={() =>
-                      setShowPaymentOptions((prev) => !prev)
-                    }
+                    onClick={() => setShowPaymentOptions((prev) => !prev)}
                   >
-                    {showPaymentOptions ? "إخفاء خيارات الدفع" : "عرض خيارات الدفع"}
+                    {showPaymentOptions
+                      ? "إخفاء خيارات الدفع"
+                      : "عرض خيارات الدفع"}
                   </button>
 
                   <div className="payment-options">
@@ -528,5 +613,3 @@ function Courses() {
 }
 
 export default Courses;
-
-
