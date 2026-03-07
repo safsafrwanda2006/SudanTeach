@@ -631,3 +631,84 @@
   font-size: 14px;
   color: #475569;
 }
+.teacher-video-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.teacher-video-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fdba74;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  transition: 0.2s ease;
+  white-space: nowrap;
+}
+
+.teacher-video-btn:hover {
+  background: #ffedd5;
+}
+
+.modal-teacher-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.modal-video-btn {
+  font-size: 14px;
+}
+
+.teacher-video-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 6px 12px;
+
+  border-radius: 30px;
+  border: 1px solid #ff0000;
+  background: #ff000034;
+  color: #2563eb;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition: all 0.2s ease;
+
+}
+
+.teacher-video-btn:hover {
+  background: #cc000098;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(255, 0, 0, 0.35);
+}
+
+.youtube-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.teacher-video-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+}
