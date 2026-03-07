@@ -1,0 +1,135 @@
+import { useState } from "react";
+import "./App.css";
+import Courses from "./sections/Courses.jsx";
+import SubmitCourse from "./sections/SubmitCourse.jsx";
+import AboutPlatform from "./sections/AboutPlatform.jsx";
+import Footer from "./sections/Footer.jsx";
+function App() {
+  const [menu, setMenu] = useState(false);
+
+  return (
+    <>
+      <div className="page-container"
+      onClick={(e)=>{
+        e.stopPropagation();
+        setMenu(false);
+      }}
+      >
+        <header>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setMenu((prev) => !prev);
+            }}
+            className="menu-btn"
+          >
+            <img src="/icons/square (1).png" alt="" />
+          </button>
+          <div className="logo">
+            <div className="green"></div>
+            <h3>
+              <span className="sudan">
+                <span className="s">S</span>
+                <span className="ud">ud</span>
+                <span className="an">an</span>
+              </span>
+              Teach
+            </h3>
+          </div>
+          <div className="header-btns">
+            <a href="/">
+              <b>الرئيسية</b>
+            </a>
+            <a href="#courses">
+              <b>الكورسات</b>
+            </a>
+            <a href="#about">
+              <b>عن المنصة</b>
+            </a>
+            <a href="#contact">
+              <b>تواصل معنا</b>
+            </a>
+          </div>
+        </header>
+        {menu && (
+          <div className="menu"
+          onClick={(e)=>{
+            e.stopPropagation();
+          }}
+          >
+            <a href="/" className="menu-btns">
+              <b>الرئيسية</b>
+            </a>
+            <a href="#courses" className="menu-btns">
+              <b>الكورسات</b>
+            </a>
+            <a href="#about" className="menu-btns">
+              <b>عن المنصة</b>
+            </a>
+            <a href="#contact" className="menu-btns">
+              <b>تواصل معنا</b>
+            </a>
+
+            <button className="primary">ابدأ التعلم الآن</button>
+          </div>
+        )}
+        <section className="hero">
+          <div className="items">
+            <div className="join">
+              <div className="imgages">
+                <img src="/images/p1.png" alt="" />
+                <img src="/images/p2.png" alt="" />
+                <img src="/images/p3.jpg" alt="" />
+              </div>
+              <p>
+                <span>SudanTeach انضم إلى أكثر من 1000 طالب يتعلمون في </span>
+              </p>
+            </div>
+            <h1>تعلّم بوضوح من خلال كورسات تفاعلية مباشرة</h1>
+            <p className="pragraph">
+              <b>
+                منصة <span dir="ltr">SudanTeach</span> تقدم تجربة تعليمية حديثة
+                للطلاب السودانيين من خلال كورسات مباشرة وتفاعلية باللغة العربية،
+                حيث يمكنك متابعة الشرح، طرح الأسئلة، والتفاعل مع المدرس أثناء
+                الحصة للحصول على فهم أعمق للمادة. تعلّم في بيئة تعليمية مرنة
+                تساعدك على تطوير معرفتك واكتساب مهارات جديدة بثقة.
+              </b>
+            </p>
+            <div className="hero-btns">
+              <button className="primary">ابدأ التعلم الآن</button>
+              <button className="secondary">استكشف الكورسات</button>
+            </div>
+          </div>
+          <div className="social-proof">
+            {" "}
+            <div className="numbers">
+              <p>طالب يتعلمون معنا</p>
+              <h3>1000+</h3>
+            </div>
+            <div className="line"></div>
+            <div className="numbers">
+              <p>درس تفاعلي مباشر</p>
+              <h3>20+</h3>
+            </div>
+             <div className="line"></div>
+            <div className="numbers">
+              <p>مدرسين متخصصين</p>
+              <h3>10+</h3>
+            </div>
+             <div className="line"></div>
+            <div className="numbers">
+              <p>رضا الطلاب</p>
+              <h3>95%</h3>
+            </div>
+          </div>
+        </section>
+        <Courses />
+        <AboutPlatform/>
+        <SubmitCourse/>
+        <Footer/>
+      </div>
+    </>
+  );
+}
+
+export default App;
