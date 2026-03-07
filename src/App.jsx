@@ -70,7 +70,7 @@ function App() {
               <b>تواصل معنا</b>
             </a>
 
-            <button className="primary">ابدأ التعلم الآن</button>
+            <a href="#course" className="primary">ابدأ التعلم الآن</a>
           </div>
         )}
         <section className="hero">
@@ -96,8 +96,8 @@ function App() {
               </b>
             </p>
             <div className="hero-btns">
-              <button className="primary">ابدأ التعلم الآن</button>
-              <button className="secondary">استكشف الكورسات</button>
+              <a href="#course" className="primary">ابدأ التعلم الآن</a>
+              <a href="#courses" className="secondary">استكشف الكورسات</a>
             </div>
           </div>
           <div className="social-proof">
