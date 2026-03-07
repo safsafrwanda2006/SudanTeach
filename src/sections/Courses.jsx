@@ -16,6 +16,7 @@ const fallbackImage =
     </svg>
   `);
 
+
 const paymentMethods = {
   بنكك: {
     name: "بنكك",
@@ -527,3 +528,4 @@ function Courses() {
 }
 
 export default Courses;
+
