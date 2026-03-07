@@ -263,7 +263,7 @@ ${contactData.message}`;
           className={activeTab === "upload" ? "tab-btn active" : "tab-btn"}
           onClick={() => setActiveTab("upload")}
         >
-          رفع دورة
+          إضافة كورس/ دورة
         </button>
       </div>
 
@@ -506,4 +506,5 @@ ${contactData.message}`;
 }
 
 export default SubmitCourse;
+
 
