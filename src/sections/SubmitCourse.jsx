@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import "./SubmitCourse.css";
 
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbwuYxx93hYNZKWWc1i2gkxQwbQApFp7lR4MX1zsnUvbZLjvz-aExMnFeBCH1kzyIoTbvg/exec";
+  "https://script.google.com/macros/s/AKfycbzzk5CAKb2RA28vmzNXkpyp5PhixjQsHZ3U7F-qixOK4aLQbMAbGVesnCwmLAoO8uXlGA/exec";
 
 const initialFormData = {
   name: "",
@@ -506,6 +506,7 @@ ${contactData.message}`;
 }
 
 export default SubmitCourse;
+
 
 
 
