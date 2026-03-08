@@ -449,7 +449,7 @@ ${contactData.message}`;
             onChange={handleChange}
             required
           />
-
+<label>من</label>
           <input
             type="date"
             name="startAt"
@@ -457,7 +457,7 @@ ${contactData.message}`;
             onChange={handleChange}
             required
           />
-
+<label>إلى</label>
           <input
             type="date"
             name="finishedAt"
@@ -586,3 +586,4 @@ ${contactData.message}`;
 }
 
 export default SubmitCourse;
+
