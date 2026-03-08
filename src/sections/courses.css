@@ -1,3 +1,7 @@
+input{
+  background-color: white;
+  color: black;
+}
 .courses-section {
   padding: 80px 8%;
   background: #f8fafc;
@@ -712,3 +716,4 @@
   align-items: center;
   margin-top: 6px;
 }
+
