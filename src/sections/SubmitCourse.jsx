@@ -1,8 +1,8 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import "./SubmitCourse.css";
 
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbzzk5CAKb2RA28vmzNXkpyp5PhixjQsHZ3U7F-qixOK4aLQbMAbGVesnCwmLAoO8uXlGA/exec";
+  "https://script.google.com/macros/s/AKfycbyTCOvdf0w2JKBU7OZkM7fEVS4MRB8cVn31ImnqqYBcOf0qJu5tuoYvdeJz5aNI-hgWsQ/exec";
 
 const initialFormData = {
   name: "",
@@ -28,6 +28,8 @@ const initialContactData = {
   message: "",
 };
 
+const PLATFORM_PERCENTAGE = 15;
+
 function SubmitCourse() {
   const [activeTab, setActiveTab] = useState("contact");
   const [formData, setFormData] = useState(initialFormData);
@@ -42,6 +44,8 @@ function SubmitCourse() {
   const [contactMessage, setContactMessage] = useState("");
   const [showCourseConfirmation, setShowCourseConfirmation] = useState(false);
   const [lastSubmittedCourse, setLastSubmittedCourse] = useState(null);
+
+  const confirmationRef = useRef(null);
 
   const isPaidCourse = useMemo(() => {
     const p = String(formData.price || "").trim().toLowerCase();
@@ -95,11 +99,41 @@ function SubmitCourse() {
     reader.readAsDataURL(file);
   };
 
+  const parsePrice = (price) => {
+    const cleaned = String(price || "").replace(/[^\d.]/g, "");
+    const value = parseFloat(cleaned);
+    return Number.isNaN(value) ? 0 : value;
+  };
+
+  const getPlatformFee = (price) => {
+    const numericPrice = parsePrice(price);
+    return (numericPrice * PLATFORM_PERCENTAGE) / 100;
+  };
+
+  const getTeacherAmount = (price) => {
+    const numericPrice = parsePrice(price);
+    return numericPrice - getPlatformFee(price);
+  };
+
+  const formatMoney = (value) => {
+    if (!Number.isFinite(value)) return "0";
+    return Number.isInteger(value) ? String(value) : value.toFixed(2);
+  };
+
   const resetCourseForm = () => {
     setFormData(initialFormData);
     setImageFile(null);
     setImageBase64("");
     setImagePreview("");
+  };
+
+  const scrollToConfirmation = () => {
+    setTimeout(() => {
+      confirmationRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 150);
   };
 
   const handleSubmit = async (e) => {
@@ -158,10 +192,13 @@ function SubmitCourse() {
           name: formData.name.trim(),
           price: formData.price.trim(),
           isPaid: isPaidCourse,
+          platformFee: getPlatformFee(formData.price),
+          teacherAmount: getTeacherAmount(formData.price),
         });
 
         setShowCourseConfirmation(true);
         resetCourseForm();
+        scrollToConfirmation();
       } else {
         setMessage(data.message || "حدث خطأ أثناء إرسال الدورة.");
       }
@@ -179,7 +216,7 @@ function SubmitCourse() {
     const whatsappText = lastSubmittedCourse.isPaid
       ? `مرحباً SudanTeach
 
-خطوة أخيرة: تأكيد بيانات الدورة والدفع
+خطوة أخيرة: تأكيد بيانات الدورة
 
 اسم الأستاذ: ${lastSubmittedCourse.teachedBy}
 البريد الإلكتروني: ${lastSubmittedCourse.teacherEmail}
@@ -187,7 +224,11 @@ function SubmitCourse() {
 اسم الدورة: ${lastSubmittedCourse.name}
 السعر: ${lastSubmittedCourse.price}
 
-أرسل هذا الطلب لتأكيد الدورة، مع إرفاق دليل الدفع في هذه المحادثة.`
+نسبة المنصة من كل طالب: ${PLATFORM_PERCENTAGE}%
+نصيب المنصة من كل تسجيل: ${formatMoney(lastSubmittedCourse.platformFee)}
+نصيب الأستاذ من كل تسجيل: ${formatMoney(lastSubmittedCourse.teacherAmount)}
+
+أرسل هذا الطلب لتأكيد الدورة ومراجعتها قبل النشر.`
       : `مرحباً SudanTeach
 
 خطوة أخيرة: تأكيد بيانات الدورة
@@ -475,27 +516,66 @@ ${contactData.message}`;
           {message && <p className="submit-message">{message}</p>}
 
           {showCourseConfirmation && lastSubmittedCourse && (
-            <div className="course-confirmation-box">
+            <div className="course-confirmation-box" ref={confirmationRef}>
               <h3>
                 {lastSubmittedCourse.isPaid
-                  ? "خطوة واحدة أخيرة: تأكيد الدورة والدفع"
+                  ? "تم استلام الدورة بنجاح"
                   : "خطوة واحدة أخيرة: تأكيد الدورة"}
               </h3>
 
-              <p>
-                {lastSubmittedCourse.isPaid
-                  ? "تم استلام بيانات الدورة. أرسل الآن طلب التأكيد مع دليل الدفع عبر واتساب لإكمال المراجعة."
-                  : "تم استلام بيانات الدورة. أرسل الآن طلب التأكيد عبر واتساب لإكمال المراجعة."}
-              </p>
+              {lastSubmittedCourse.isPaid ? (
+                <>
+                  <p className="confirmation-intro">
+                    قبل النشر، نود توضيح نموذج العمل بشكل شفاف وبسيط: تأخذ
+                    SudanTeach نسبة <strong>{PLATFORM_PERCENTAGE}%</strong> فقط
+                    من كل طالب مسجل فعلياً، مما يعني أن نجاحنا مرتبط مباشرة بنجاح
+                    دورتك.
+                  </p>
+
+                  <div className="commission-summary">
+                    <div className="commission-item">
+                      <span>سعر الدورة</span>
+                      <strong>{lastSubmittedCourse.price}</strong>
+                    </div>
+
+                    <div className="commission-item">
+                      <span>نسبة المنصة</span>
+                      <strong>{PLATFORM_PERCENTAGE}%</strong>
+                    </div>
+
+                    <div className="commission-item">
+                      <span>نصيب المنصة من كل طالب</span>
+                      <strong>
+                        {formatMoney(lastSubmittedCourse.platformFee)}
+                      </strong>
+                    </div>
+
+                    <div className="commission-item">
+                      <span>نصيبك من كل طالب</span>
+                      <strong>
+                        {formatMoney(lastSubmittedCourse.teacherAmount)}
+                      </strong>
+                    </div>
+                  </div>
+
+                  <p className="confirmation-note">
+                    بهذه الطريقة تدفع فقط مقابل النتائج الفعلية، بدون تعقيد وبدون
+                    رسوم ثابتة كبيرة مقدماً.
+                  </p>
+                </>
+              ) : (
+                <p>
+                  تم استلام بيانات الدورة. أرسل الآن طلب التأكيد عبر واتساب
+                  لإكمال المراجعة قبل النشر.
+                </p>
+              )}
 
               <button
                 type="button"
                 className="course-confirm-btn"
                 onClick={sendCourseConfirmation}
               >
-                {lastSubmittedCourse.isPaid
-                  ? "إرسال تأكيد الدورة والدفع"
-                  : "إرسال طلب التأكيد"}
+                إرسال طلب التأكيد
               </button>
             </div>
           )}
@@ -506,8 +586,3 @@ ${contactData.message}`;
 }
 
 export default SubmitCourse;
-
-
-
-
-
