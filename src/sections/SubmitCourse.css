@@ -402,7 +402,6 @@ textarea{
   object-fit: cover;
   border-radius: 12px;
   display: block;
-
 }
 .course-confirmation-box {
   margin-top: 18px;
@@ -441,4 +440,70 @@ textarea{
 .course-confirm-btn:hover {
   background: #15803d;
 }
+.course-confirmation-box {
+  margin-top: 24px;
+  padding: 22px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff, #f8fafc);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  text-align: right;
+}
 
+.course-confirmation-box h3 {
+  margin: 0 0 12px;
+  color: #0f172a;
+  font-size: 22px;
+}
+
+.confirmation-intro,
+.confirmation-note,
+.course-confirmation-box p {
+  margin: 0 0 14px;
+  line-height: 1.8;
+  color: #334155;
+}
+
+.commission-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.commission-item {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+}
+
+.commission-item span {
+  display: block;
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+.commission-item strong {
+  font-size: 20px;
+  color: #0f172a;
+}
+
+.course-confirm-btn {
+  margin-top: 10px;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 20px;
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.course-confirm-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
