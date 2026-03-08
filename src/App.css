@@ -46,45 +46,17 @@ header {
 .menu {
   display: none;
 }
-.logo {
+.sudan-teach-logo {
   margin-left: 5%;
   position: relative;
   display: flex;
   align-items: center;
-}
-
-.green {
-  position: absolute;
-  width: 28px;
-  height: 30px;
-  background: linear-gradient(
-    40deg,
-    rgba(255, 255, 255, 0) 50%,
-    rgb(2, 255, 2) 50%
-  );
-  left: 3px;
-  top: 50%;
-  transform: translateY(-50%) rotate(50deg);
-}
-
-.logo h3 {
-  font-size: 1.5rem;
-  margin: 0;
-  margin-left: 18px;
+  gap: 0.2em;
   color: #2563eb;
-  line-height: 1.2;
 }
-
-.sudan {
-  padding: 5px 0 5px 20px;
-  background: linear-gradient(
-    to bottom,
-    red 33.33%,
-    white 33.33%,
-    white 66.66%,
-    black 66.66%
-  );
-  border-radius: 3px;
+.sudan-teach-logo img{
+  width: 50px;
+  height: 50px;
 }
 
 .header-btns {
