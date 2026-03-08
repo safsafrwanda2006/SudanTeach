@@ -9,7 +9,10 @@ function Footer() {
 
         {/* about */}
         <div className="footer-col">
+          <a href="/" className="footer-logo">
           <h3>SudanTeach</h3>
+          <img src="/icons/logo.png" alt="" />
+          </a>
           <p>
             منصة تعليمية تهدف إلى ربط الطلاب بالمدرسين والدورات التعليمية
             في مكان واحد، لتسهيل الوصول إلى المعرفة والتعلم بطريقة حديثة.
