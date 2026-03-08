@@ -56,7 +56,7 @@ function Footer() {
               <img src="/icons/x.png" alt="" />
             </a>
 
-            <a href="https://www.facebook.com/sudanteach" className="social-icon"
+            <a href="https://www.facebook.com/profile.php?id=61582751366261" className="social-icon"
             target="_blank">
               <img src="/icons/facebook.png" alt="facebook" />
             </a>
@@ -104,3 +104,4 @@ function Footer() {
 }
 
 export default Footer;
+
