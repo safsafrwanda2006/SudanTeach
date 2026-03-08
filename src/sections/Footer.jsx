@@ -49,7 +49,7 @@ function Footer() {
 
           <div className="footer-social">
 
-            <a href="https://x.com/sudanteach"
+            <a href="https://x.com/SudanTeach46689"
             className="social-icon"
             target="_blank"
             >
@@ -104,4 +104,5 @@ function Footer() {
 }
 
 export default Footer;
+
 
