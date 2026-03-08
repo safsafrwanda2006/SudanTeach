@@ -26,17 +26,15 @@ function App() {
           >
             <img src="/icons/square (1).png" alt="" />
           </button>
-          <div className="logo">
-            <div className="green"></div>
+          <a href="/" className="sudan-teach-logo">
+            <img src="/icons/logo.png" alt="" />
             <h3>
-              <span className="sudan">
-                <span className="s">S</span>
-                <span className="ud">ud</span>
-                <span className="an">an</span>
-              </span>
+              <span className="s">S</span>
+              <span className="ud">ud</span>
+              <span className="an">an</span>
               Teach
             </h3>
-          </div>
+          </a>
           <div className="header-btns">
             <a href="/">
               <b>الرئيسية</b>
