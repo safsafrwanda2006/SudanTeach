@@ -8,7 +8,6 @@ function Footer() {
       <div className="footer-container">
 
         {/* about */}
-
         <div className="footer-col">
           <h3>SudanTeach</h3>
           <p>
@@ -18,7 +17,6 @@ function Footer() {
         </div>
 
         {/* links */}
-
         <div className="footer-col">
           <h4>روابط سريعة</h4>
           <ul>
@@ -30,7 +28,6 @@ function Footer() {
         </div>
 
         {/* categories */}
-
         <div className="footer-col">
           <h4>التصنيفات</h4>
           <ul>
@@ -41,21 +38,41 @@ function Footer() {
         </div>
 
         {/* contact */}
-
         <div className="footer-col">
           <h4>تواصل معنا</h4>
 
           <p>📞 +250794101251</p>
-
           <p>✉️ sudanteach.platform@gmail.com</p>
 
           <div className="footer-social">
 
-            <a href="#">Facebook</a>
+            <a href="https://x.com/sudanteach"
+            className="social-icon"
+            target="_blank"
+            >
+              <img src="/icons/x.png" alt="" />
+            </a>
 
-            <a href="#">WhatsApp</a>
+            <a href="https://www.facebook.com/sudanteach" className="social-icon"
+            target="_blank">
+              <img src="/icons/facebook.png" alt="facebook" />
+            </a>
 
-            <a href="#">Telegram</a>
+            <a href="https://www.instagram.com/sudanteach" 
+            className="social-icon"
+            target="_blank"
+            >
+              <img src="/icons/instgram.png" alt="instagram" />
+            </a>
+
+            <a 
+            href="https://www.youtube.com/@SudanTeach" 
+            className="social-icon"
+            target="_blank"
+            >
+
+              <img src="/icons/youtube.png" alt="youtube" />
+            </a>
 
           </div>
 
@@ -64,7 +81,19 @@ function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} SudanTeach - جميع الحقوق محفوظة</p>
+
+        <p>
+          © {new Date().getFullYear()} SudanTeach - جميع الحقوق محفوظة
+        </p>
+
+        <p className="footer-dev">
+          تم التطوير بواسطة <a 
+          href="https://execode-two.vercel.app/"
+          target="_blank"
+          ><strong>ExeCode</strong></a>
+          
+        </p>
+
       </div>
 
     </footer>
