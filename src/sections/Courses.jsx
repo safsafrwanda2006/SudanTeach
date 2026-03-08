@@ -21,25 +21,25 @@ const fallbackImage =
 const paymentMethods = {
   بنكك: {
     name: "بنكك",
-    account: "0912345678",
+    account: "سيظهر رقم الحساب بعد إرسال رسالة التأكيد",
     receiver: "Mustafa Khamis",
     image: "/payments/bankak.png",
   },
   فوري: {
     name: "فوري",
-    account: "0912345678",
+    account: "سيظهر رقم الحساب بعد إرسال رسالة التأكيد",
     receiver: "Mustafa Khamis",
     image: "/payments/fawry.png",
   },
   "موبايل موني": {
     name: "موبايل موني",
-    account: "0912345678",
+    account: "سيظهر رقم الحساب بعد إرسال رسالة التأكيد",
     receiver: "Mustafa Khamis",
     image: "/payments/momo.png",
   },
   MyCashi: {
     name: "MyCashi",
-    account: "0912345678",
+    account: "سيظهر رقم الحساب بعد إرسال رسالة التأكيد",
     receiver: "Mustafa Khamis",
     image: "/payments/mycashi.png",
   },
@@ -613,4 +613,5 @@ function Courses() {
 }
 
 export default Courses;
+
 
