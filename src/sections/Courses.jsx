@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import "./courses.css";
 
 const API_URL =
@@ -21,7 +21,7 @@ const fallbackImage =
 const paymentMethods = {
   بنكك: {
     name: "بنكك",
-    account: "سيظهر رقم الحساب بعد إرسال رسالة التأكيد",
+    account: "0912345678",
     receiver: "Mustafa Khamis",
     image: "/payments/bankak.png",
   },
@@ -62,6 +62,8 @@ function Courses() {
   const [registerMessage, setRegisterMessage] = useState("");
   const [showPaymentOptions, setShowPaymentOptions] = useState(false);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
+
+  const paymentRef = useRef(null);
 
   useEffect(() => {
     fetch(`${API_URL}?action=getCourses`)
@@ -233,12 +235,19 @@ function Courses() {
       if (data.success) {
         if (paidCourse) {
           setRegisterMessage(
-            "تم حفظ طلب التسجيل. الآن اختر وسيلة الدفع ثم أرسل تأكيد الدفع عبر واتساب.",
+            "تم حفظ طلب التسجيل. الآن اختر وسيلة الدفع ثم أرسل تأكيد الدفع عبر واتساب."
           );
           setShowPaymentOptions(true);
+
+          setTimeout(() => {
+            paymentRef.current?.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }, 150);
         } else {
           setRegisterMessage(
-            "تم التسجيل بنجاح. سيتم إضافتك إلى الميتينق أو القروب المناسب قريباً.",
+            "تم التسجيل بنجاح. سيتم إضافتك إلى الميتينق أو القروب المناسب قريباً."
           );
         }
       } else {
@@ -274,10 +283,10 @@ function Courses() {
 الرجاء إرفاق صورة أو دليل الدفع في هذه المحادثة.`;
 
     const whatsappUrl = `https://wa.me/250794101251?text=${encodeURIComponent(
-      whatsappText,
+      whatsappText
     )}`;
 
-    window.open(whatsappUrl, "_blank");
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -408,7 +417,6 @@ function Courses() {
                         />
                         <span>شاهد فيديو تعريفي للمدرس</span>
                       </a>
-                      
                     </div>
 
                     <p className="short-desc">{item.shortDescription}</p>
@@ -551,59 +559,78 @@ function Courses() {
                 {registerMessage && (
                   <p className="register-message">{registerMessage}</p>
                 )}
-              </form>
 
-              {!isFreeCourse(selectedCourse.price) && showPaymentOptions && (
-                <div className="payment-section">
-                  <button
-                    type="button"
-                    className="payment-toggle-btn"
-                    onClick={() => setShowPaymentOptions((prev) => !prev)}
-                  >
-                    {showPaymentOptions
-                      ? "إخفاء خيارات الدفع"
-                      : "عرض خيارات الدفع"}
-                  </button>
+                {!isFreeCourse(selectedCourse.price) && (
+                  <div className="payment-toggle-wrapper">
+                    <button
+                      type="button"
+                      className="payment-toggle-btn"
+                      onClick={() => {
+                        setShowPaymentOptions((prev) => {
+                          const next = !prev;
 
-                  <div className="payment-options">
-                    {Object.keys(paymentMethods).map((methodKey) => {
-                      const method = paymentMethods[methodKey];
-                      return (
-                        <div
-                          key={methodKey}
-                          className={
-                            selectedPaymentMethod === methodKey
-                              ? "payment-card active"
-                              : "payment-card"
+                          if (next) {
+                            setTimeout(() => {
+                              paymentRef.current?.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                              });
+                            }, 100);
                           }
-                          onClick={() => setSelectedPaymentMethod(methodKey)}
-                        >
-                          <div className="payment-card-top">
-                            <img
-                              src={method.image}
-                              alt={method.name}
-                              onError={(e) => {
-                                e.currentTarget.style.display = "none";
-                              }}
-                            />
-                            <h4>{method.name}</h4>
-                          </div>
-                          <p>اسم المستلم: {method.receiver}</p>
-                          <p>الرقم / الحساب: {method.account}</p>
-                        </div>
-                      );
-                    })}
-                  </div>
 
-                  <button
-                    type="button"
-                    className="payment-proof-btn"
-                    onClick={sendPaymentProof}
-                  >
-                    إرسال تأكيد أو دليل الدفع
-                  </button>
-                </div>
-              )}
+                          return next;
+                        });
+                      }}
+                    >
+                      {showPaymentOptions
+                        ? "إخفاء خيارات الدفع"
+                        : "عرض خيارات الدفع"}
+                    </button>
+                  </div>
+                )}
+
+                {!isFreeCourse(selectedCourse.price) && showPaymentOptions && (
+                  <div className="payment-section" ref={paymentRef}>
+                    <div className="payment-options">
+                      {Object.keys(paymentMethods).map((methodKey) => {
+                        const method = paymentMethods[methodKey];
+                        return (
+                          <div
+                            key={methodKey}
+                            className={
+                              selectedPaymentMethod === methodKey
+                                ? "payment-card active"
+                                : "payment-card"
+                            }
+                            onClick={() => setSelectedPaymentMethod(methodKey)}
+                          >
+                            <div className="payment-card-top">
+                              <img
+                                src={method.image}
+                                alt={method.name}
+                                onError={(e) => {
+                                  e.currentTarget.style.display = "none";
+                                }}
+                              />
+                              <h4>{method.name}</h4>
+                            </div>
+                            <p>اسم المستلم: {method.receiver}</p>
+                            <p>الرقم / الحساب: {method.account}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <button
+                      type="button"
+                      className="payment-proof-btn"
+                      onClick={sendPaymentProof}
+                    >
+                      إرسال تأكيد أو دليل الدفع
+                    </button>
+                  </div>
+                )}
+              </form>
             </div>
           </div>
         </div>
@@ -613,5 +640,3 @@ function Courses() {
 }
 
 export default Courses;
-
-
