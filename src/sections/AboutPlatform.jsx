@@ -77,7 +77,7 @@ function AboutPlatform() {
               في مجالات مختلفة."
             </p>
             <h4>عبدالله حسن</h4>
-            <span>متعلم</span>
+            <span>طالب</span>
           </div>
 
         </div>
@@ -90,3 +90,4 @@ function AboutPlatform() {
 
 
 export default AboutPlatform;
+
