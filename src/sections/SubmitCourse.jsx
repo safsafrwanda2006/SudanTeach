@@ -1,8 +1,8 @@
 import React, { useMemo, useRef, useState } from "react";
-import "./SubmitCourse.css";
+import "./submitCourse.css";
 
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbyTCOvdf0w2JKBU7OZkM7fEVS4MRB8cVn31ImnqqYBcOf0qJu5tuoYvdeJz5aNI-hgWsQ/exec";
+  "https://script.google.com/macros/s/AKfycbzGtffRVTc6V84ikuiZJs7uPd9Ot0o1G7x9L-fZ9n3Xher5NO7PO6TPMDiQTnLz1dayDw/exec";
 
 const initialFormData = {
   name: "",
@@ -48,7 +48,9 @@ function SubmitCourse() {
   const confirmationRef = useRef(null);
 
   const isPaidCourse = useMemo(() => {
-    const p = String(formData.price || "").trim().toLowerCase();
+    const p = String(formData.price || "")
+      .trim()
+      .toLowerCase();
     return !(p === "free" || p === "مجاني" || p === "0");
   }, [formData.price]);
 
@@ -164,6 +166,7 @@ function SubmitCourse() {
       lessonsCount: formData.lessonsCount,
       teacherEmail: formData.teacherEmail.trim(),
       teacherPhone: formData.teacherPhone.trim(),
+      featured: "false",
       imageBase64,
       imageName: imageFile.name,
       imageMimeType: imageFile.type,
@@ -355,9 +358,7 @@ ${contactData.message}`;
 
           <button type="submit">إرسال عبر واتساب</button>
 
-          {contactMessage && (
-            <p className="submit-message">{contactMessage}</p>
-          )}
+          {contactMessage && <p className="submit-message">{contactMessage}</p>}
         </form>
       )}
 
@@ -449,7 +450,8 @@ ${contactData.message}`;
             onChange={handleChange}
             required
           />
-<label>من</label>
+
+          <label>من</label>
           <input
             type="date"
             name="startAt"
@@ -457,7 +459,8 @@ ${contactData.message}`;
             onChange={handleChange}
             required
           />
-<label>إلى</label>
+
+          <label>إلى</label>
           <input
             type="date"
             name="finishedAt"
@@ -528,8 +531,8 @@ ${contactData.message}`;
                   <p className="confirmation-intro">
                     قبل النشر، نود توضيح نموذج العمل بشكل شفاف وبسيط: تأخذ
                     SudanTeach نسبة <strong>{PLATFORM_PERCENTAGE}%</strong> فقط
-                    من كل طالب مسجل فعلياً، مما يعني أن نجاحنا مرتبط مباشرة بنجاح
-                    دورتك.
+                    من كل طالب مسجل فعلياً، مما يعني أن نجاحنا مرتبط مباشرة
+                    بنجاح دورتك.
                   </p>
 
                   <div className="commission-summary">
@@ -559,8 +562,8 @@ ${contactData.message}`;
                   </div>
 
                   <p className="confirmation-note">
-                    بهذه الطريقة تدفع فقط مقابل النتائج الفعلية، بدون تعقيد وبدون
-                    رسوم ثابتة كبيرة مقدماً.
+                    بهذه الطريقة تدفع فقط مقابل النتائج الفعلية، بدون تعقيد
+                    وبدون رسوم ثابتة كبيرة مقدماً.
                   </p>
                 </>
               ) : (
@@ -586,4 +589,3 @@ ${contactData.message}`;
 }
 
 export default SubmitCourse;
-
