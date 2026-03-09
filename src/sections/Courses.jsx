@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState, useRef } from "react";
 import "./courses.css";
 
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbyTCOvdf0w2JKBU7OZkM7fEVS4MRB8cVn31ImnqqYBcOf0qJu5tuoYvdeJz5aNI-hgWsQ/exec";
+  "https://script.google.com/macros/s/AKfycbzGtffRVTc6V84ikuiZJs7uPd9Ot0o1G7x9L-fZ9n3Xher5NO7PO6TPMDiQTnLz1dayDw/exec";
 
 const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@SudanTeach";
 
@@ -159,6 +159,18 @@ function Courses() {
   const isFreeCourse = (price) => {
     const p = normalizePrice(price);
     return p === "free" || p === "مجاني" || p === "0";
+  };
+
+  const isFeaturedCourse = (value) => {
+    const normalized = String(value || "")
+      .trim()
+      .toLowerCase();
+    return (
+      value === true ||
+      normalized === "true" ||
+      normalized === "yes" ||
+      normalized === "1"
+    );
   };
 
   const handleRegisterChange = (e) => {
@@ -381,9 +393,14 @@ function Courses() {
             filteredCourses.map((item) => {
               const free = isFreeCourse(item.price);
               const teacherVideoUrl = getTeacherVideoUrl(item);
+              const isFeatured = isFeaturedCourse(item.featured);
 
               return (
-                <div className="course-card" id="course" key={item.id}>
+                <div
+                  className={isFeatured ? "course-card featured-course" : "course-card"}
+                  id="course"
+                  key={item.id}
+                >
                   <div className="course-img">
                     <img
                       src={getCourseImage(item)}
@@ -394,7 +411,15 @@ function Courses() {
                         e.currentTarget.src = fallbackImage;
                       }}
                     />
+
                     <span className="status-badge">{item.status}</span>
+
+                    {isFeatured && (
+                      <div className="featured-badge">
+                        <img src="/icons/featured.png" alt="Featured" />
+                        <span>دورة مميزة</span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="content">
@@ -407,7 +432,22 @@ function Courses() {
                       </span>
                     </div>
 
-                    <h3>{item.name}</h3>
+                    <h3 className="course-title-row">
+                      {item.name}
+                      {isFeatured && (
+                        <img
+                          src="/icons/featured.png"
+                          alt="Featured"
+                          className="featured-inline-icon"
+                        />
+                      )}
+                    </h3>
+
+                    {isFeatured && (
+                      <div className="featured-note">
+                        من الدورات المختارة والمُوصى بها على SudanTeach
+                      </div>
+                    )}
 
                     <div className="teacher-video-row">
                       <p className="teacher">يقدمه: {item.teachedBy}</p>
@@ -440,7 +480,7 @@ function Courses() {
 
                     <div className="course-actions">
                       <button
-                        className="details-btn"
+                        className={isFeatured ? "details-btn featured-btn" : "details-btn"}
                         onClick={() => openCourseModal(item)}
                       >
                         سجّل الآن
@@ -460,7 +500,14 @@ function Courses() {
 
       {selectedCourse && (
         <div className="modal-overlay" onClick={closeCourseModal}>
-          <div className="course-modal" onClick={(e) => e.stopPropagation()}>
+          <div
+            className={
+              isFeaturedCourse(selectedCourse.featured)
+                ? "course-modal featured-modal"
+                : "course-modal"
+            }
+            onClick={(e) => e.stopPropagation()}
+          >
             <button className="close-btn" onClick={closeCourseModal}>
               ×
             </button>
@@ -474,13 +521,18 @@ function Courses() {
                   e.currentTarget.src = fallbackImage;
                 }}
               />
+
+              {isFeaturedCourse(selectedCourse.featured) && (
+                <div className="featured-badge modal-featured-badge">
+                  <img src="/icons/featured.png" alt="Featured" />
+                  <span>دورة مميزة</span>
+                </div>
+              )}
             </div>
 
             <div className="modal-content">
               <div className="modal-top">
-                <span className="modal-category">
-                  {selectedCourse.category}
-                </span>
+                <span className="modal-category">{selectedCourse.category}</span>
                 <span
                   className={
                     isFreeCourse(selectedCourse.price)
@@ -494,7 +546,22 @@ function Courses() {
                 </span>
               </div>
 
-              <h2>{selectedCourse.name}</h2>
+              <h2 className="modal-title-row">
+                {selectedCourse.name}
+                {isFeaturedCourse(selectedCourse.featured) && (
+                  <img
+                    src="/icons/featured.png"
+                    alt="Featured"
+                    className="featured-inline-icon modal-inline-icon"
+                  />
+                )}
+              </h2>
+
+              {isFeaturedCourse(selectedCourse.featured) && (
+                <div className="featured-note modal-featured-note">
+                  هذه من الدورات المميزة المختارة بعناية على SudanTeach
+                </div>
+              )}
 
               <div className="modal-teacher-row">
                 <p className="modal-teacher">
