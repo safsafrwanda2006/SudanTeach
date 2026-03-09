@@ -58,8 +58,8 @@ function AboutPlatform() {
               "منصة رائعة ساعدتني في العثور على دورة برمجة بسهولة،
               المعلومات واضحة والتواصل مع المدرس كان سريع."
             </p>
-            <h4>محمد أحمد</h4>
-            <span>طالب</span>
+             <h4>سارة خالد</h4>            
+            <span>طالبة</span>
           </div>
 
           <div className="testimonial-card">
@@ -67,8 +67,9 @@ function AboutPlatform() {
               "أفضل ما في المنصة هو سهولة عرض الدورات،
               استطعت نشر دورتي والوصول إلى طلاب جدد."
             </p>
-            <h4>سارة خالد</h4>
-            <span>مدرسة</span>
+           <h4>محمد أحمد</h4>
+
+            <span>مدرس</span>
           </div>
 
           <div className="testimonial-card">
@@ -90,4 +91,5 @@ function AboutPlatform() {
 
 
 export default AboutPlatform;
+
 
