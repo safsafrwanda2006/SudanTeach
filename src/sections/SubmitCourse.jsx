@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState } from "react";
-import "./submitCourse.css";
+import "./SubmitCourse.css";
 
 const API_URL =
   "https://script.google.com/macros/s/AKfycbzGtffRVTc6V84ikuiZJs7uPd9Ot0o1G7x9L-fZ9n3Xher5NO7PO6TPMDiQTnLz1dayDw/exec";
@@ -589,3 +589,4 @@ ${contactData.message}`;
 }
 
 export default SubmitCourse;
+
