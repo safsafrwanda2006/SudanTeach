@@ -61,9 +61,11 @@ function Courses() {
   const [registerLoading, setRegisterLoading] = useState(false);
   const [registerMessage, setRegisterMessage] = useState("");
   const [showPaymentOptions, setShowPaymentOptions] = useState(false);
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("بنكك");
+  const [registrationCompleted, setRegistrationCompleted] = useState(false);
 
   const paymentRef = useRef(null);
+  const paymentToggleRef = useRef(null);
 
   useEffect(() => {
     fetch(`${API_URL}?action=getCourses`)
@@ -174,8 +176,9 @@ function Courses() {
       studentWhatsapp: "",
     });
     setRegisterMessage("");
-    setSelectedPaymentMethod("");
+    setSelectedPaymentMethod("بنكك");
     setShowPaymentOptions(false);
+    setRegistrationCompleted(false);
   };
 
   const openCourseModal = (course) => {
@@ -217,7 +220,7 @@ function Courses() {
       studentEmail: registerData.studentEmail.trim(),
       studentWhatsapp: registerData.studentWhatsapp.trim(),
       price: selectedCourse.price || "",
-      paymentMethod: paidCourse ? selectedPaymentMethod || "" : "Free",
+      paymentMethod: paidCourse ? selectedPaymentMethod || "بنكك" : "Free",
       paymentStatus: paidCourse ? "Pending Payment" : "Not Required",
       meetingType: selectedCourse.meetingType || "",
       courseStatus: selectedCourse.status || "",
@@ -234,17 +237,19 @@ function Courses() {
 
       if (data.success) {
         if (paidCourse) {
+          setRegistrationCompleted(true);
+          setShowPaymentOptions(false);
+          setSelectedPaymentMethod("بنكك");
           setRegisterMessage(
-            "تم حفظ طلب التسجيل. الآن اختر وسيلة الدفع ثم أرسل تأكيد الدفع عبر واتساب."
+            "تم حفظ طلب التسجيل بنجاح. خطوة أخيرة: اضغط على زر عرض خيارات الدفع لإكمال العملية."
           );
-          setShowPaymentOptions(true);
 
           setTimeout(() => {
-            paymentRef.current?.scrollIntoView({
+            paymentToggleRef.current?.scrollIntoView({
               behavior: "smooth",
-              block: "start",
+              block: "center",
             });
-          }, 150);
+          }, 200);
         } else {
           setRegisterMessage(
             "تم التسجيل بنجاح. سيتم إضافتك إلى الميتينق أو القروب المناسب قريباً."
@@ -264,7 +269,9 @@ function Courses() {
   const sendPaymentProof = () => {
     if (!selectedCourse) return;
 
-    if (!selectedPaymentMethod) {
+    const finalPaymentMethod = selectedPaymentMethod || "بنكك";
+
+    if (!finalPaymentMethod) {
       setRegisterMessage("اختر طريقة الدفع أولاً.");
       return;
     }
@@ -278,7 +285,7 @@ function Courses() {
 اسم الكورس: ${selectedCourse.name}
 المدرس: ${selectedCourse.teachedBy}
 السعر: ${selectedCourse.price}
-طريقة الدفع: ${selectedPaymentMethod}
+طريقة الدفع: ${finalPaymentMethod}
 
 الرجاء إرفاق صورة أو دليل الدفع في هذه المحادثة.`;
 
@@ -560,8 +567,11 @@ function Courses() {
                   <p className="register-message">{registerMessage}</p>
                 )}
 
-                {!isFreeCourse(selectedCourse.price) && (
-                  <div className="payment-toggle-wrapper">
+                {!isFreeCourse(selectedCourse.price) && registrationCompleted && (
+                  <div
+                    className="payment-toggle-wrapper"
+                    ref={paymentToggleRef}
+                  >
                     <button
                       type="button"
                       className="payment-toggle-btn"
@@ -584,7 +594,7 @@ function Courses() {
                     >
                       {showPaymentOptions
                         ? "إخفاء خيارات الدفع"
-                        : "عرض خيارات الدفع"}
+                        : "خطوة أخيرة: عرض خيارات الدفع"}
                     </button>
                   </div>
                 )}
