@@ -21,7 +21,7 @@ const fallbackImage =
 const paymentMethods = {
   بنكك: {
     name: "بنكك",
-    account: "0912345678",
+    account: "سيظهر رقم الحساب بعد إرسال رسالة التأكيد",
     receiver: "Mustafa Khamis",
     image: "/payments/bankak.png",
   },
@@ -301,7 +301,7 @@ function Courses() {
 
 الرجاء إرفاق صورة أو دليل الدفع في هذه المحادثة.`;
 
-    const whatsappUrl = `https://wa.me/250794101251?text=${encodeURIComponent(
+    const whatsappUrl = `https://wa.me/250722727821?text=${encodeURIComponent(
       whatsappText
     )}`;
 
