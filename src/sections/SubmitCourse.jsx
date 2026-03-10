@@ -243,7 +243,7 @@ function SubmitCourse() {
 
 أرسل هذا الطلب لتأكيد الدورة ومراجعتها قبل النشر.`;
 
-    const whatsappUrl = `https://wa.me/250794101251?text=${encodeURIComponent(
+    const whatsappUrl = `https://wa.me/250722727821?text=${encodeURIComponent(
       whatsappText
     )}`;
 
@@ -589,4 +589,5 @@ ${contactData.message}`;
 }
 
 export default SubmitCourse;
+
 
