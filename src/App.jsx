@@ -46,7 +46,7 @@ function App() {
               <b>عن المنصة</b>
             </a>
             <a href="#contact">
-              <b>تواصل معنا</b>
+              <b>تواصل/اضافة كورس</b>
             </a>
           </div>
         </header>
@@ -66,7 +66,7 @@ function App() {
               <b>عن المنصة</b>
             </a>
             <a href="#contact" className="menu-btns">
-              <b>تواصل معنا</b>
+              <b>تواصل/اضافة كورس</b>
             </a>
 
             <a href="#course" className="primary">ابدأ التعلم الآن</a>
