@@ -96,7 +96,7 @@ function App() {
             </p>
             <div className="hero-btns">
               <a href="#courses" className="primary">ابدأ التعلم الآن</a>
-              <a href="#contact" className="secondary">اضافة كورس/دورة</a>
+              <a href="#contact" className="secondary">اضافة كورس/ دورة</a>
             </div>
           </div>
           <div className="social-proof">
