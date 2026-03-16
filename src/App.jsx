@@ -46,7 +46,7 @@ function App() {
               <b>عن المنصة</b>
             </a>
             <a href="#contact">
-              <b>تواصل/اضافة كورس</b>
+              <b>تواصل معنا</b>
             </a>
           </div>
         </header>
@@ -66,7 +66,7 @@ function App() {
               <b>عن المنصة</b>
             </a>
             <a href="#contact" className="menu-btns">
-              <b>تواصل/اضافة كورس</b>
+              <b>تواصل معنا</b>
             </a>
 
             <a href="#course" className="primary">ابدأ التعلم الآن</a>
@@ -95,8 +95,8 @@ function App() {
               </b>
             </p>
             <div className="hero-btns">
-              <a href="#course" className="primary">ابدأ التعلم الآن</a>
-              <a href="#courses" className="secondary">استكشف الكورسات</a>
+              <a href="#courses" className="primary">ابدأ التعلم الآن</a>
+              <a href="#contact" className="secondary">اضافة كورس/دورة</a>
             </div>
           </div>
           <div className="social-proof">
