@@ -38,33 +38,63 @@ textarea{
   max-width: 700px;
   margin: 0 auto;
 }
-
 .submit-tabs {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   margin-bottom: 24px;
+  background: #f1f5f9;
+  padding: 6px;
+  border-radius: 14px;
 }
 
+/* الزر الأساسي */
 .tab-btn {
   flex: 1;
   padding: 14px 18px;
-  border: none;
-  border-radius: 12px;
-  background: #e2e8f0;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background: transparent;
   color: #0f172a;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+/* hover واضح يخلي الزر يبان clickable */
+.tab-btn:hover {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+}
+
+/* active (المهم جداً) */
+.tab-btn.active {
+  background: #2563eb;
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+}
+
+/* تأثير ضغط */
+.tab-btn:active {
+  transform: scale(0.97);
+}
+
+/* ✨ subtle indicator (خط تحت الزر) */
+.tab-btn::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 20%;
+  width: 60%;
+  height: 3px;
+  border-radius: 10px;
+  background: transparent;
   transition: 0.25s ease;
 }
 
-.tab-btn:hover {
-  background: #cbd5e1;
-}
-
-.tab-btn.active {
+.tab-btn.active::after {
   background: #2563eb;
-  color: #ffffff;
 }
 
 .submit-course-form {
@@ -141,9 +171,9 @@ textarea{
     font-size: 14px;
   }
 
-  .submit-tabs {
+  /* .submit-tabs {
     flex-direction: column;
-  }
+  } */
 
   .tab-btn {
     width: 100%;
@@ -293,9 +323,9 @@ textarea{
     margin-bottom: 20px;
   }
 
-  .submit-tabs {
+  /* .submit-tabs {
     flex-direction: column;
-  }
+  } */
 
   .tab-btn {
     width: 100%;
@@ -339,6 +369,16 @@ textarea{
 
   .submit-course-form textarea {
     min-height: 100px;
+  }
+  .submit-tabs {
+    gap: 6px;
+    padding: 4px;
+  }
+
+  .tab-btn {
+    padding: 10px 8px;
+    font-size: 13px;
+    border-radius: 8px;
   }
 }
 
