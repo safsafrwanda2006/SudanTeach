@@ -21,10 +21,9 @@ function App() {
               e.stopPropagation();
               setMenu((prev) => !prev);
             }}
-            
             className="menu-btn"
           >
-            <img src="/icons/square (1).png" alt="" />
+            <img src={menu?"/icons/close.png":"/icons/menu.png"} alt="" />
           </button>
           <a href="/" className="sudan-teach-logo">
             <img src="/icons/logo.png" alt="" />
