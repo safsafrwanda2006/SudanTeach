@@ -151,6 +151,12 @@ function Courses() {
     return str;
   };
 
+  const getDiscountPrice = (price) => {
+    const num = parseFloat(String(price).replace(/[^\d]/g, ""));
+    if (!num) return null;
+    return Math.round(num * 1.2);
+  };
+
   const normalizePrice = (price) =>
     String(price || "")
       .trim()
@@ -253,7 +259,7 @@ function Courses() {
           setShowPaymentOptions(false);
           setSelectedPaymentMethod("بنكك");
           setRegisterMessage(
-            "تم حفظ طلب التسجيل بنجاح. خطوة أخيرة: اضغط على زر عرض خيارات الدفع لإكمال العملية."
+            "تم حفظ طلب التسجيل بنجاح. خطوة أخيرة: اضغط على زر عرض خيارات الدفع لإكمال العملية.",
           );
 
           setTimeout(() => {
@@ -264,7 +270,7 @@ function Courses() {
           }, 200);
         } else {
           setRegisterMessage(
-            "تم التسجيل بنجاح. سيتم إضافتك إلى الميتينق أو القروب المناسب قريباً."
+            "تم التسجيل بنجاح. سيتم إضافتك إلى الميتينق أو القروب المناسب قريباً.",
           );
         }
       } else {
@@ -302,7 +308,7 @@ function Courses() {
 الرجاء إرفاق صورة أو دليل الدفع في هذه المحادثة.`;
 
     const whatsappUrl = `https://wa.me/250722727821?text=${encodeURIComponent(
-      whatsappText
+      whatsappText,
     )}`;
 
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
@@ -397,7 +403,9 @@ function Courses() {
 
               return (
                 <div
-                  className={isFeatured ? "course-card featured-course" : "course-card"}
+                  className={
+                    isFeatured ? "course-card featured-course" : "course-card"
+                  }
                   id="course"
                   key={item.id}
                 >
@@ -425,11 +433,19 @@ function Courses() {
                   <div className="content">
                     <div className="course-top-line">
                       <span className="course-category">{item.category}</span>
-                      <span
-                        className={free ? "price-tag free" : "price-tag paid"}
-                      >
-                        {free ? "مجاني" : item.price}
-                      </span>
+                      <div className="price-wrapper">
+                        {!free && (
+                          <span className="old-price">
+                            {getDiscountPrice(item.price)}
+                          </span>
+                        )}
+
+                        <span
+                          className={free ? "price-tag free" : "price-tag paid"}
+                        >
+                          {free ? "مجاني" : item.price}
+                        </span>
+                      </div>
                     </div>
 
                     <h3 className="course-title-row">
@@ -480,7 +496,11 @@ function Courses() {
 
                     <div className="course-actions">
                       <button
-                        className={isFeatured ? "details-btn featured-btn" : "details-btn"}
+                        className={
+                          isFeatured
+                            ? "details-btn featured-btn"
+                            : "details-btn"
+                        }
                         onClick={() => openCourseModal(item)}
                       >
                         سجّل الآن
@@ -532,7 +552,9 @@ function Courses() {
 
             <div className="modal-content">
               <div className="modal-top">
-                <span className="modal-category">{selectedCourse.category}</span>
+                <span className="modal-category">
+                  {selectedCourse.category}
+                </span>
                 <span
                   className={
                     isFreeCourse(selectedCourse.price)
@@ -634,37 +656,38 @@ function Courses() {
                   <p className="register-message">{registerMessage}</p>
                 )}
 
-                {!isFreeCourse(selectedCourse.price) && registrationCompleted && (
-                  <div
-                    className="payment-toggle-wrapper"
-                    ref={paymentToggleRef}
-                  >
-                    <button
-                      type="button"
-                      className="payment-toggle-btn"
-                      onClick={() => {
-                        setShowPaymentOptions((prev) => {
-                          const next = !prev;
-
-                          if (next) {
-                            setTimeout(() => {
-                              paymentRef.current?.scrollIntoView({
-                                behavior: "smooth",
-                                block: "start",
-                              });
-                            }, 100);
-                          }
-
-                          return next;
-                        });
-                      }}
+                {!isFreeCourse(selectedCourse.price) &&
+                  registrationCompleted && (
+                    <div
+                      className="payment-toggle-wrapper"
+                      ref={paymentToggleRef}
                     >
-                      {showPaymentOptions
-                        ? "إخفاء خيارات الدفع"
-                        : "خطوة أخيرة: عرض خيارات الدفع"}
-                    </button>
-                  </div>
-                )}
+                      <button
+                        type="button"
+                        className="payment-toggle-btn"
+                        onClick={() => {
+                          setShowPaymentOptions((prev) => {
+                            const next = !prev;
+
+                            if (next) {
+                              setTimeout(() => {
+                                paymentRef.current?.scrollIntoView({
+                                  behavior: "smooth",
+                                  block: "start",
+                                });
+                              }, 100);
+                            }
+
+                            return next;
+                          });
+                        }}
+                      >
+                        {showPaymentOptions
+                          ? "إخفاء خيارات الدفع"
+                          : "خطوة أخيرة: عرض خيارات الدفع"}
+                      </button>
+                    </div>
+                  )}
 
                 {!isFreeCourse(selectedCourse.price) && showPaymentOptions && (
                   <div className="payment-section" ref={paymentRef}>
