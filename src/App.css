@@ -59,7 +59,6 @@ header {
   height: 50px;
   margin-top: -3px;
 }
-
 .header-btns {
   display: flex;
   align-items: center;
@@ -247,21 +246,19 @@ header {
   }
   .menu-btn {
     display: block;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid rgba(31, 41, 55, 0.9);
     background-color: rgba(255, 255, 255, 0);
     position: absolute;
     left: 5%;
     outline: none;
-    border: none;
+    padding: 0px;
   }
-  .menu-btn:focus {
-    outline: none;
-    border: none;
-  }
+ 
   .menu {
     display: flex;
     flex-direction: column;
