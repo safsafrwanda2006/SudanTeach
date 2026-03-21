@@ -31,7 +31,7 @@ const initialContactData = {
 const PLATFORM_PERCENTAGE = 15;
 
 function SubmitCourse() {
-  const [activeTab, setActiveTab] = useState("contact");
+  const [activeTab, setActiveTab] = useState("upload");
   const [formData, setFormData] = useState(initialFormData);
   const [contactData, setContactData] = useState(initialContactData);
 
