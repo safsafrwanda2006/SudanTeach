@@ -51,7 +51,7 @@ function SubmitCourse() {
     const p = String(formData.price || "")
       .trim()
       .toLowerCase();
-    return !(p === "free" || p === "مجاني" || p === "0");
+    return !(p === "free" || p === "مجاني" || p === "0"|| p ==="مجان");
   }, [formData.price]);
 
   const handleChange = (e) => {
