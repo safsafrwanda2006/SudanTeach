@@ -111,7 +111,7 @@ function Footer() {
 
         <p className="footer-dev">
           تم التطوير بواسطة{" "}
-          <a href="https://execode-two.vercel.app/" target="_blank">
+          <a href="https://execode-team.vercel.app/" target="_blank">
             <strong>ExeCode</strong>
           </a>
         </p>
