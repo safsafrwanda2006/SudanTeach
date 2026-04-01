@@ -110,12 +110,12 @@ function App() {
             <p className="partners-title">بالتعاون مع</p>
 
             <div className="partners-logos">
-              <a href="#" target="_blank" rel="noreferrer" className="partner">
+              <a href="https://wa.me/250737541191?text=طلب%20تقديم%20للدراسة%20في%20رواندا%20(SudanTeach)%0A%0A%E2%80%A2%20التخصص%20المطلوب:%0A%E2%80%A2%20النسبة:%0A%0Aيرجى%20مشاركة%20الخيارات%20المناسبة." target="_blank" rel="noreferrer" className="partner">
                 <img src="/images/mugadam.png" alt="Study in Rwanda" />
                 <span>Study in Rwanda</span>
               </a>
 
-              <a href="#" target="_blank" rel="noreferrer" className="partner">
+              <a href="https://execode-team.vercel.app/" target="_blank" rel="noreferrer" className="partner">
                 <img src="/images/execode.png" alt="Execode" />
                 <span>Execode Solutions</span>
               </a>
