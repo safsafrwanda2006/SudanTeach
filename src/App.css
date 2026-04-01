@@ -97,7 +97,9 @@ header {
   padding: 2rem 1.5rem 3rem;
   position: relative;
 }
-
+.join-items{
+  margin-bottom: -10px;
+}
 .items {
   display: flex;
   flex-direction: column;
@@ -105,6 +107,7 @@ header {
   align-items: flex-end;
   justify-content: center;
   margin: 0 auto;
+  margin-top: -10px;
   width: 100%;
   max-width: 1100px;
 }
@@ -178,6 +181,8 @@ header {
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
+  width: 185px;
+  text-align: center;
 }
 
 .hero-btns .primary:hover {
@@ -193,6 +198,8 @@ header {
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
+  width: 185px;
+  text-align: center;
 }
 
 .hero-btns .secondary:hover {
@@ -386,5 +393,160 @@ header {
 
   .social-proof {
     padding: 0.7rem 0.8rem;
+  }
+}
+
+/* =========================
+   Partners Section
+========================= */
+
+.hero-partners {
+  margin: 0px 100px 0 auto;
+  text-align: right;
+}
+
+.partners-title {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+.partners-logos {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.partner {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  transition: 0.25s ease;
+  width: 190px;  
+}
+
+.partner:hover {
+  transform: translateY(-2px);
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.partner img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #2563eb;
+  background: #fff;
+}
+
+.partner span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* =========================
+   New Social Proof Style
+========================= */
+
+.social-proof {
+  display: flex;
+  gap: 25px;
+  margin: 20px 100px 0 auto;
+  justify-content: flex-end;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.numbers {
+  text-align: center;
+}
+
+.numbers h3 {
+  font-size: 22px;
+  color: #2563eb;
+  margin: 0;
+}
+
+.numbers p {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+}
+
+/* =========================
+   Mobile Fix
+========================= */
+
+@media (max-width: 600px) {
+  .hero-partners {
+    margin: 20px auto 0 auto;
+    text-align: center;
+  }
+
+  .partners-logos {
+    justify-content: center;
+  }
+
+  .social-proof {
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin: 20px auto 0 auto;
+  }
+}
+
+/* =========================
+   Mobile Social Proof PRO
+========================= */
+
+@media (max-width: 600px) {
+  .social-proof {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 340px;
+    margin: 25px auto 0 auto;
+    padding: 0;
+    border: none;
+    background: transparent;
+  }
+
+  .numbers {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 14px 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    text-align: center;
+    transition: 0.25s ease;
+  }
+
+  .numbers:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+  }
+
+  .numbers h3 {
+    font-size: 20px;
+    color: #2563eb;
+    margin-bottom: 4px;
+    font-weight: 800;
+  }
+
+  .numbers p {
+    font-size: 12px;
+    color: #64748b;
+    margin: 0;
   }
 }
