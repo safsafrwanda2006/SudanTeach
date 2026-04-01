@@ -9,11 +9,12 @@ function App() {
 
   return (
     <>
-      <div className="page-container"
-      onClick={(e)=>{
-        e.stopPropagation();
-        setMenu(false);
-      }}
+      <div
+        className="page-container"
+        onClick={(e) => {
+          e.stopPropagation();
+          setMenu(false);
+        }}
       >
         <header>
           <button
@@ -23,7 +24,7 @@ function App() {
             }}
             className="menu-btn"
           >
-            <img src={menu?"/icons/close.png":"/icons/menu.png"} alt="" />
+            <img src={menu ? "/icons/close.png" : "/icons/menu.png"} alt="" />
           </button>
           <a href="/" className="sudan-teach-logo">
             <img src="/icons/logo.png" alt="" />
@@ -50,10 +51,11 @@ function App() {
           </div>
         </header>
         {menu && (
-          <div className="menu"
-          onClick={(e)=>{
-            e.stopPropagation();
-          }}
+          <div
+            className="menu"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           >
             <a href="/" className="menu-btns">
               <b>الرئيسية</b>
@@ -68,19 +70,21 @@ function App() {
               <b>تواصل معنا</b>
             </a>
 
-            <a href="#course" className="primary">ابدأ التعلم الآن</a>
+            <a href="#course" className="primary">
+              ابدأ التعلم الآن
+            </a>
           </div>
         )}
         <section className="hero">
           <div className="items">
             <div className="join">
-              <div className="imgages">
+              <div className="imgages join-items">
                 <img src="/images/p1.png" alt="" />
                 <img src="/images/p2.png" alt="" />
                 <img src="/images/p3.jpg" alt="" />
               </div>
-              <p>
-                <span>SudanTeach انضم إلى أكثر من 1000 طالب يتعلمون في </span>
+              <p className="join-items">
+                <span >SudanTeach انضم إلى أكثر من 1000 طالب يتعلمون في </span>
               </p>
             </div>
             <h1>تعلّم بوضوح من خلال كورسات تفاعلية مباشرة</h1>
@@ -94,37 +98,55 @@ function App() {
               </b>
             </p>
             <div className="hero-btns">
-              <a href="#courses" className="primary">ابدأ التعلم الآن</a>
-              <a href="#contact" className="secondary">اضافة كورس/ دورة</a>
+              <a href="#course" className="primary">
+                ابدأ التعلم الآن
+              </a>
+              <a href="#addcourse" className="secondary">
+                اضافة كورس/ دورة
+              </a>
+            </div>
+          </div>
+          <div className="hero-partners">
+            <p className="partners-title">بالتعاون مع</p>
+
+            <div className="partners-logos">
+              <a href="#" target="_blank" rel="noreferrer" className="partner">
+                <img src="/images/mugadam.png" alt="Study in Rwanda" />
+                <span>Study in Rwanda</span>
+              </a>
+
+              <a href="#" target="_blank" rel="noreferrer" className="partner">
+                <img src="/images/execode.png" alt="Execode" />
+                <span>Execode Solutions</span>
+              </a>
             </div>
           </div>
           <div className="social-proof">
-            {" "}
             <div className="numbers">
-              <p>طالب يتعلمون معنا</p>
+              <p>طالب</p>
               <h3>1000+</h3>
             </div>
-            <div className="line"></div>
+
             <div className="numbers">
-              <p>درس تفاعلي مباشر</p>
+              <p>درس مباشر</p>
               <h3>20+</h3>
             </div>
-             <div className="line"></div>
+
             <div className="numbers">
-              <p>مدرسين متخصصين</p>
+              <p>مدرس</p>
               <h3>10+</h3>
             </div>
-             <div className="line"></div>
+
             <div className="numbers">
-              <p>رضا الطلاب</p>
+              <p>رضا</p>
               <h3>95%</h3>
             </div>
           </div>
         </section>
         <Courses />
-        <AboutPlatform/>
-        <SubmitCourse/>
-        <Footer/>
+        <AboutPlatform />
+        <SubmitCourse />
+        <Footer />
       </div>
     </>
   );
