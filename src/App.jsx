@@ -110,7 +110,7 @@ function App() {
             <p className="partners-title">بالتعاون مع</p>
 
             <div className="partners-logos">
-              <a
+  <a
   href="https://wa.me/250737541191?text=طلب%20تقديم%20للدراسة%20في%20رواندا%20(SudanTeach)%0A%0A%E2%80%A2%20التخصص%20المطلوب:%0A%E2%80%A2%20النسبة:%0A%0Aيرجى%20مشاركة%20الخيارات%20المناسبة."
   target="_blank"
   rel="noreferrer"
@@ -118,20 +118,19 @@ function App() {
   onClick={(e) => {
     e.preventDefault();
 
-    if (window.gtag) {
-      window.gtag('event', 'whatsapp_click', {
-        event_category: 'CTA',
-        event_label: 'Study in Rwanda Button',
-        value: 1,
-      });
-    }
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "study_rwanda_click",
+      event_category: "CTA",
+      event_label: "Study in Rwanda Button",
+    });
 
     setTimeout(() => {
       window.open(
         "https://wa.me/250737541191?text=طلب%20تقديم%20للدراسة%20في%20رواندا%20(SudanTeach)%0A%0A%E2%80%A2%20التخصص%20المطلوب:%0A%E2%80%A2%20النسبة:%0A%0Aيرجى%20مشاركة%20الخيارات%20المناسبة.",
         "_blank"
       );
-    }, 150);
+    }, 300);
   }}
 >
   <img src="/images/mugadam.png" alt="Study in Rwanda" />
