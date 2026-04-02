@@ -110,10 +110,33 @@ function App() {
             <p className="partners-title">بالتعاون مع</p>
 
             <div className="partners-logos">
-              <a href="https://wa.me/250737541191?text=طلب%20تقديم%20للدراسة%20في%20رواندا%20(SudanTeach)%0A%0A%E2%80%A2%20التخصص%20المطلوب:%0A%E2%80%A2%20النسبة:%0A%0Aيرجى%20مشاركة%20الخيارات%20المناسبة." target="_blank" rel="noreferrer" className="partner">
-                <img src="/images/mugadam.png" alt="Study in Rwanda" />
-                <span>Study in Rwanda</span>
-              </a>
+              <a
+  href="https://wa.me/250737541191?text=طلب%20تقديم%20للدراسة%20في%20رواندا%20(SudanTeach)%0A%0A%E2%80%A2%20التخصص%20المطلوب:%0A%E2%80%A2%20النسبة:%0A%0Aيرجى%20مشاركة%20الخيارات%20المناسبة."
+  target="_blank"
+  rel="noreferrer"
+  className="partner"
+  onClick={(e) => {
+    e.preventDefault();
+
+    if (window.gtag) {
+      window.gtag('event', 'whatsapp_click', {
+        event_category: 'CTA',
+        event_label: 'Study in Rwanda Button',
+        value: 1,
+      });
+    }
+
+    setTimeout(() => {
+      window.open(
+        "https://wa.me/250737541191?text=طلب%20تقديم%20للدراسة%20في%20رواندا%20(SudanTeach)%0A%0A%E2%80%A2%20التخصص%20المطلوب:%0A%E2%80%A2%20النسبة:%0A%0Aيرجى%20مشاركة%20الخيارات%20المناسبة.",
+        "_blank"
+      );
+    }, 150);
+  }}
+>
+  <img src="/images/mugadam.png" alt="Study in Rwanda" />
+  <span>Study in Rwanda</span>
+</a>
 
               <a href="https://execode-team.vercel.app/" target="_blank" rel="noreferrer" className="partner">
                 <img src="/images/execode.png" alt="Execode" />
