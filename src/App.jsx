@@ -101,7 +101,7 @@ function App() {
               <a href="#course" className="primary">
                 ابدأ التعلم الآن
               </a>
-              <a href="#addcourse" className="secondary">
+              <a href="#contact" className="secondary">
                 اضافة كورس/ دورة
               </a>
             </div>
